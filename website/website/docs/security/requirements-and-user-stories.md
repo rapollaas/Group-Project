@@ -34,8 +34,6 @@ This document translates application risks into testable security requirements. 
 | SR-02 | High | Registration and authentication responses must not reveal whether an account exists. Login responses should be consistent in content and avoid avoidable timing differences between unknown accounts and incorrect passwords. | A07 |
 | SR-03 | High | Repeated failed authentication attempts must be subject to an appropriate abuse-control mechanism, such as rate limiting, progressive delay or temporary throttling, without enabling trivial permanent account lockout attacks. | A07 |
 | SR-04 | High | Design-request submission must validate input server-side, enforce CSRF protection and apply proportionate abuse controls against automated or repeated unwanted submissions. | A06 |
-| SR-05 | Critical | Every protected action must enforce server-side role permissions and record ownership/assignment. A user must not access or modify another user's records by changing an identifier or submitting a forged request. | A01 |
-| SR-06 | High | Image uploads must be restricted to intended formats and sizes, validated using file content as well as client-supplied metadata, stored using safe generated names, and prevented from executing as server-side code. | A02, A06, A08 |
 
 
 ## 4. Security user stories and acceptance criteria
@@ -109,16 +107,6 @@ This document translates application risks into testable security requirements. 
 2. Submit missing/oversized fields and an invalid or missing CSRF token; confirm safe rejection.
 3. Make a small controlled number of repeat submissions and inspect whether the defined abuse control applies.
 4. Check database state to confirm rejected requests were not stored.
-
-
-## 5. Requirement-to-test tracking
-
-
-| Requirement/story | Test IDs | Positive test | Negative test | SAST/DAST evidence | Tester | Verdict |
-|---|---|---|---|---|---|---|
-| SR-01 / SEC-01 | T-01, T-02 | To complete | To complete | To complete | Milosz | Not tested |
-| SR-02 / SEC-02 | T-03, T-04 | To complete | To complete | To complete | Milosz | Not tested |
-| SR-03 / SEC-03 | T-05 | To complete | To complete | To complete | Rapolas | Not tested |
 
 
 
