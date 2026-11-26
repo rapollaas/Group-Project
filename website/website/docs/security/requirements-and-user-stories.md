@@ -3,10 +3,8 @@
 ## 1. Purpose
 This document translates application risks into testable security requirements. Map each requirement to implementation changes, positive and negative tests, relevant SAST/DAST evidence and a final verdict.
 
-The assignment requires at least two security user stories per group member. The six stories below provide that baseline for a three-person group. Replace Member A/B/C with the actual group members and record who personally executed each test.
-
 ## 2. OWASP guidance
-Use the **OWASP Top 10:2025** as a risk-awareness framework, not as a substitute for application-specific threat modelling or testing.
+
 
 | Category | Relevance to Interior Studio |
 |---|---|
@@ -39,12 +37,11 @@ Use the **OWASP Top 10:2025** as a risk-awareness framework, not as a substitute
 | SR-05 | Critical | Every protected action must enforce server-side role permissions and record ownership/assignment. A user must not access or modify another user's records by changing an identifier or submitting a forged request. | A01 |
 | SR-06 | High | Image uploads must be restricted to intended formats and sizes, validated using file content as well as client-supplied metadata, stored using safe generated names, and prevented from executing as server-side code. | A02, A06, A08 |
 
-Priorities are proposed assessment priorities. Justify or adjust them using likelihood, impact and test evidence.
 
 ## 4. Security user stories and acceptance criteria
 
 ### SEC-01 — Prevent directory and sensitive-file disclosure
-**Assigned member:** Member A (replace with actual name)
+**Assigned member:** Milosz Murmylo
 
 **User story:** As the application owner, I want the web server to deny directory browsing and direct access to sensitive application files so that visitors cannot discover or retrieve internal configuration, backups or source files.
 
@@ -61,7 +58,7 @@ Priorities are proposed assessment priorities. Justify or adjust them using like
 4. Record response status/body and relevant server configuration. A guessed path returning 404 alone does not prove all sensitive files are protected.
 
 ### SEC-02 — Prevent account enumeration
-**Assigned member:** Member A (replace with actual name)
+**Assigned member:** Milosz M
 
 **User story:** As a registered user, I want registration and login responses to avoid revealing whether an email address has an account so that an attacker cannot build a list of valid users.
 
@@ -78,7 +75,7 @@ Priorities are proposed assessment priorities. Justify or adjust them using like
 4. Verify valid login and registration. Use synthetic accounts only.
 
 ### SEC-03 — Limit authentication abuse
-**Assigned member:** Member B (replace with actual name)
+**Assigned member:** Milosz M
 
 **User story:** As the application owner, I want repeated failed login attempts to be throttled so that automated password guessing is made more difficult without unnecessarily denying service to legitimate users.
 
@@ -96,7 +93,7 @@ Priorities are proposed assessment priorities. Justify or adjust them using like
 4. Verify legitimate login recovery. Do not conduct high-volume brute-force testing.
 
 ### SEC-04 — Protect design-request submission from abuse
-**Assigned member:** Member B (replace with actual name)
+**Assigned member:** Rapolas P
 
 **User story:** As the application owner, I want design-request submissions validated and proportionately rate-limited so that automated or repeated requests cannot unnecessarily consume resources or pollute the database.
 
@@ -113,72 +110,20 @@ Priorities are proposed assessment priorities. Justify or adjust them using like
 3. Make a small controlled number of repeat submissions and inspect whether the defined abuse control applies.
 4. Check database state to confirm rejected requests were not stored.
 
-### SEC-05 — Enforce role permissions and record ownership
-**Assigned member:** Member C (replace with actual name)
-
-**User story:** As a client or designer, I want the application to enforce my permissions and record ownership on the server so that I cannot view or modify another user's projects by changing request parameters.
-
-**Acceptance criteria**
-- Unauthenticated users cannot access protected pages or actions.
-- Clients can access only their own requests and projects.
-- Designers can access and update only projects assigned to them.
-- Clients and designers cannot perform administrator-only operations.
-- Administrators can perform authorised management tasks.
-- Access checks occur on every relevant server-side action, not only in the user interface.
-
-**Suggested tests**
-1. Create two synthetic clients and relevant project records; attempt cross-client access by changing IDs in URLs/forms.
-2. Sign in as a designer and attempt to access a project assigned to another designer.
-3. Attempt admin actions as a client and designer.
-4. Confirm authorised users can still access their own/assigned records and administrators can perform intended operations.
-5. Capture allowed and denied outcomes.
-
-### SEC-06 — Validate and safely store image uploads
-**Assigned member:** Member C (replace with actual name)
-
-**User story:** As an administrator, I want uploaded project images validated and stored safely so that a malicious or malformed upload cannot execute code, overwrite files or escape the intended upload area.
-
-**Acceptance criteria**
-- Only explicitly permitted image formats are accepted.
-- Server-side validation uses file content/MIME detection rather than trusting browser-supplied filename or content type alone.
-- The configured maximum size is enforced server-side.
-- Stored filenames are generated safely and cannot contain traversal paths.
-- Uploaded content cannot execute as PHP or other server-side code.
-- Failed uploads return a safe error and do not leave partial or unsafe files behind.
-
-**Suggested tests**
-1. Positive: upload a valid small JPG, PNG or WebP image and confirm it is stored/displayed as intended.
-2. Negative: attempt a disallowed extension, mismatched extension/content, oversized file and filename containing path-like characters.
-3. Inspect the stored filename and location.
-4. Attempt to access an uploaded test file and confirm it is served as data, not executed. Use harmless test content only.
 
 ## 5. Requirement-to-test tracking
 
-Complete this table during the assessment. Add rows if a requirement needs multiple tests. Each group member must personally execute at least two substantive manual tests, as required by the assignment.
 
 | Requirement/story | Test IDs | Positive test | Negative test | SAST/DAST evidence | Tester | Verdict |
 |---|---|---|---|---|---|---|
-| SR-01 / SEC-01 | T-01, T-02 | To complete | To complete | To complete | Member A | Not tested |
-| SR-02 / SEC-02 | T-03, T-04 | To complete | To complete | To complete | Member A | Not tested |
-| SR-03 / SEC-03 | T-05 | To complete | To complete | To complete | Member B | Not tested |
-| SR-04 / SEC-04 | T-06, T-07 | To complete | To complete | To complete | Member B | Not tested |
-| SR-05 / SEC-05 | T-08, T-09 | To complete | To complete | To complete | Member C | Not tested |
-| SR-06 / SEC-06 | T-10, T-11 | To complete | To complete | To complete | Member C | Not tested |
+| SR-01 / SEC-01 | T-01, T-02 | To complete | To complete | To complete | Milosz | Not tested |
+| SR-02 / SEC-02 | T-03, T-04 | To complete | To complete | To complete | Milosz | Not tested |
+| SR-03 / SEC-03 | T-05 | To complete | To complete | To complete | Rapolas | Not tested |
 
-Use **Verified**, **Failed** or **Inconclusive** only after execution. Until then, retain **Not tested**.
+
+
 
 ## 6. Test record template
-For each manual, SAST or DAST test, record:
-- Test ID and linked requirement/story.
-- Tester and date/time.
-- Application version, Git commit and environment.
-- Tool and version, if applicable.
-- Preconditions and test account/role.
-- Steps and request details, with secrets removed.
-- Expected result and actual result.
-- Evidence filename/reference (screenshots, logs, scan output or HTTP response).
-- Verdict: Verified, Failed or Inconclusive.
-- Finding, impact and remediation required.
 
 ## 7. Interpretation
-A requirement is not satisfied merely because a control is described in the README or appears in source code. Verify behaviour through independent tests. Manually triage SAST findings and reproduce/interpret DAST results in the context of this application. Record false positives and tool limitations.
+
