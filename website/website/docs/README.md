@@ -12,7 +12,3 @@ This folder contains the context and scope, security requirements, security user
 - [Data flow](diagrams/data-flow.md)
 - [Trust boundaries](diagrams/trust-boundaries.md)
 
-## Using this documentation
-Treat these documents as the assessment baseline and update them as the application and test coverage evolve. Record actual tester names, dates, application commit/version, tools, evidence references and outcomes in the report or test log.
-
-The observations are preliminary source-review leads, not completed penetration-test findings. Do not mark a requirement Verified until the test has been executed against the stated application version and supported by evidence. Diagrams use Mermaid and can be edited directly in GitHub.
