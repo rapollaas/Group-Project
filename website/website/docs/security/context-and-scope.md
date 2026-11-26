@@ -14,7 +14,7 @@ This assessment applies a secure software development lifecycle (S-SDLC) approac
 - independently verify controls through manual tests and suitable SAST and DAST tools;
 - record evidence, limitations, failures and remediation decisions.
 
-This document defines the assessment scope. It does not claim that the application is secure or that any test has passed.
+This document defines the assessment scope.
 
 ## 3. Application roles and permissions
 
@@ -59,7 +59,6 @@ A client views project information associated with their account, including prog
 | Database configuration | config/config.php | May contain database credentials and security configuration; must not be publicly retrievable. |
 | Schema and sample data | database directory | Reveals data structure; sample accounts and credentials must not be reused in deployment. |
 
-The repository includes demonstration account data and local database defaults. Treat these as development-only. Do not copy demonstration passwords or credentials into assessment evidence or use them in a public deployment. Production secrets should be supplied outside the public source repository.
 
 ## 6. Critical application functions
 1. Authentication and session management: registration, login, logout, password changes and session lifecycle.
@@ -99,18 +98,8 @@ The browser is untrusted: client-side validation and submitted identifiers can b
 - Real customer data or uninvolved users' accounts.
 - Claims about production infrastructure, hosting configuration, TLS termination, backups or monitoring that the group has not deployed and inspected.
 
-### Test safety and evidence
-Test only the group's local instance, using accounts and data created for the assessment. Keep request rates low and stop if the application or host becomes unstable. For each test, record the requirement ID, tester, date/time, application version/commit, environment, preconditions, steps, expected and actual results, evidence reference and verdict.
-
-Use the assignment verdicts consistently:
-- **Verified:** the control behaved as required and evidence supports the result.
-- **Failed:** the test demonstrated that the requirement was not met.
-- **Inconclusive:** the test did not provide enough reliable evidence to decide.
-
-Do not fabricate screenshots, logs, scan output, test results or remediation claims. Record failures and inconclusive cases honestly.
 
 ## 9. Preliminary source-review observations
-These are leads for testing, not final vulnerability findings. Confirm each against the precise assessment build and preserve evidence before assigning severity or verdict.
 
 | ID | Preliminary observation | Security relevance | Follow-up verification |
 |---|---|---|---|
@@ -119,7 +108,6 @@ These are leads for testing, not final vulnerability findings. Confirm each agai
 | OBS-03 | The reviewed design-request endpoint includes CSRF validation and basic required-field checks. No request rate-limiting control was apparent in the endpoint reviewed. | OWASP A06:2025 Insecure Design | Conduct a small controlled repeat-submission test and inspect whether duplicate requests are accepted or throttled. Do not flood the service or claim denial-of-service without evidence. |
 | OBS-04 | Reviewed upload code includes MIME checking and a 5 MB size limit. Further safeguards require verification. | OWASP A02:2025; A06:2025 | Test disallowed extensions, MIME/content mismatch, oversize files, unusual filenames and whether uploaded files can execute or escape intended paths. |
 
-Positive source-review indicators were also present: a shared role-checking function is used for restricted pages, the designer project view checks assignment, the portfolio query filters to published projects, and prepared statements are used in reviewed query paths. These do not prove every route or data path is protected. Test direct requests and alternative endpoints.
 
 ## 10. Assessment limitations
-This is a bounded academic assessment of a local development instance and repository source. Findings may change as code evolves. A source observation does not establish exploitability, and a passing test does not prove the absence of other weaknesses. Conclusions must identify the tested commit/version, environment, coverage and limitations.
+This is a bounded academic assessment of a local development instance and repository source. Findings may change as code evolves. A source observation does not establish exploitability, and a passing test does not prove the absence of other weaknesses.
