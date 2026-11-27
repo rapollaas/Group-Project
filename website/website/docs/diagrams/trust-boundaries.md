@@ -2,7 +2,7 @@
 
 The diagram identifies where data crosses trust levels or components. These boundaries guide threat modelling and test selection.
 
-
+![Trust Boundary Diagram:](TrustBoundaries.png)
 
 ## Trust-boundary assumptions
 1. **Browser to server:** treat request data as attacker-controlled, including hidden fields, query parameters, cookies and file metadata.
