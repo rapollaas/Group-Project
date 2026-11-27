@@ -2,7 +2,7 @@
 
 High-level logical data flows and stores identified in the application. Confirm exact fields and endpoint behaviour against code and schema before treating this as implementation evidence.
 
-
+![Level 1 Data-Flow Diagram](Level1DFD.png)
 
 ## Data protection points
 - Authenticate and authorise each request before returning data from a protected store.
