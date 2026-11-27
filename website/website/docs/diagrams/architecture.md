@@ -2,6 +2,7 @@
 
 Logical view of the local Interior Studio application, based on the reviewed repository structure and runtime description. This is not a production deployment diagram.
 
+![System Architecture](SystemArchitecture1.png)
 
 
 ## Component notes
